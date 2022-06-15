@@ -26,6 +26,12 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+    @GetMapping("/{id}")
+    public String allUser(@PathVariable Long id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        return "admin";
+    }
+
     @GetMapping()
     public String findAll(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         List<User> userList = userService.findAll();
@@ -35,6 +41,9 @@ public class AdminController {
         model.addAttribute("role", roleService.findAll());
         return "admin";
     }
+
+
+
 
 //    @PostMapping("/admin/user-create")
 //    public String createUser(User user,

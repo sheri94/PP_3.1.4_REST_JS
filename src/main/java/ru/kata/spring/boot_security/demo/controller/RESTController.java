@@ -48,5 +48,4 @@ public class RESTController {
         userService.saveUser(user);
         return user;
     }
-
 }
