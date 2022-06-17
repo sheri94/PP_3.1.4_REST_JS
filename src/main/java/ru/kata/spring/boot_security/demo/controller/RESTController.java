@@ -21,7 +21,7 @@ public class RESTController {
     }
 
     @GetMapping()
-    public List<User> showAllUser() {
+    public List<User> getAllUser() {
         List<User> allUsers = userService.findAll();
         return allUsers;
     }
@@ -32,7 +32,7 @@ public class RESTController {
     }
 
     @PostMapping()
-    public User createNewUser(@RequestBody User user) {
+    public User addNewUser(@RequestBody User user) {
         userService.saveUser(user);
         return user;
     }
@@ -44,7 +44,7 @@ public class RESTController {
     }
 
     @PutMapping("{id}")
-    public User updateUser(@RequestBody User user) {
+    public User editUser(@RequestBody User user) {
         userService.saveUser(user);
         return user;
     }

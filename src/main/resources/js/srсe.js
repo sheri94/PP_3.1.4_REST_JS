@@ -1,37 +1,46 @@
 let requestUrl = 'http://localhost:8080/admin/users'
 
 //------ Table users ------------------------
-function refreshData() {
+// function refreshData() {
+//     fetch(requestUrl)
+//         .then(response => response.json())
+//         .then(result => refreshTable(result))
+//
+//     function refreshTable(users) {
+//         let tBody = ''
+//         $('#usersTable').find('tr').remove();
+//         $.each(users, function (key, object) {
+//             let roles = ''
+//             $.each(object.roles, function (k, o) {
+//                 roles += o.name + ' '
+//             })
+//             tBody += ('<tr>');
+//             tBody += ('<td>' + object.id + '</td>');
+//             tBody += ('<td>' + object.name + '</td>');
+//             tBody += ('<td>' + object.surname + '</td>');
+//             tBody += ('<td>' + object.age + '</td>');
+//             tBody += ('<td>' + object.email + '</td>');
+//             tBody += ('<td>' + roles.replaceAll('ROLE_', ' ') + '</td>');
+//             tBody += ('<td><button type="button" onclick="editModal(' + object.id + ')" ' +
+//                 'class="btn btn-primary">Edit</button></td>');
+//             tBody += ('<td><button type="button" onclick="deleteModal(' + object.id + ')" ' +
+//                 'class="btn btn-danger">Delete</button></td>');
+//             tBody += ('<tr>');
+//         });
+//         $('#usersTable').html(tBody);
+//     }
+
+
+
+function refresh(data) {
     fetch(requestUrl)
         .then(response => response.json())
-        .then(result => refreshTable(result))
-
-    // function refreshTable(users) {
-    //     let tBody = ''
-    //     $('#usersTable').find('tr').remove();
-    //     $.each(users, function (key, object) {
-    //         let roles = ''
-    //         $.each(object.roles, function (k, o) {
-    //             roles += o.name + ' '
-    //         })
-    //         tBody += ('<tr>');
-    //         tBody += ('<td>' + object.id + '</td>');
-    //         tBody += ('<td>' + object.username + '</td>');
-    //         tBody += ('<td>' + object.name + '</td>');
-    //         tBody += ('<td>' + object.lastName + '</td>');
-    //         tBody += ('<td>' + object.age + '</td>');
-    //         tBody += ('<td>' + roles.replaceAll('ROLE_', ' ') + '</td>');
-    //         tBody += ('<td><button type="button" onclick="editModal(' + object.id + ')" ' +
-    //             'class="btn btn-primary">Edit</button></td>');
-    //         tBody += ('<td><button type="button" onclick="deleteModal(' + object.id + ')" ' +
-    //             'class="btn btn-danger">Delete</button></td>');
-    //         tBody += ('<tr>');
-    //     });
-    //     $('#usersTable').html(tBody);
-    // }
+        .then((data) => {
+            refreshTable(data);
+        });
 
     function refreshTable(jsonObj) {
-        let table = document.getElementById('usersTable');
+        let table = document.getElementById('myTable');
         clearTable(table, 0);
         for (let i = 0; i < jsonObj.length; i++) {
             let row = `<tr>
@@ -39,27 +48,24 @@ function refreshData() {
                             <td>${jsonObj[i].name}</td>
                             <td>${jsonObj[i].surname}</td>
                             <td>${jsonObj[i].age}</td>
-                            <td>${jsonObj[i].email}</td>              
+                            <td>${jsonObj[i].email}</td>
                             <td>${jsonObj[i]['roles'][0]['name']}</td>
-                            
-                            <td><button onclick="editModal(${jsonObj[i].id})" 
-                            id="buttonEdit" type="button" 
-                            class="btn btn-info" 
-                            data-toggle="modal" 
-                            data-target ="#modalEdit">Edit</button></td>
-                            
-                            <td><button onclick="deleteModal(${jsonObj[i].id})" 
-                            id="buttonDelete" 
-                            type="button" 
-                            class="btn btn-danger" 
-                            data-toggle="modal" 
-                            data-target="#modalDelete">Delete</button></td>
+                            <td><button onclick="editModal(${jsonObj[i].id})" id="buttonEdit" type="button" class="btn btn-info" data-toggle="modal" data-target ="#modalEdit">Edit</button></td>
+                            <td><button onclick="deleteModal(${jsonObj[i].id})" id="buttonDelete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">Delete</button></td>
                        </tr>`;
             table.innerHTML += row;
         }
     }
-
 }
+
+function clearTable(table, offset = 0) {
+    let rowCount = table.rows.length;
+    for (let i = offset; i < rowCount; i++) {
+        table.deleteRow(offset);
+    }
+}
+
+
 
 //------ Create new user ------------------------
 
@@ -163,6 +169,8 @@ function deleteUser(id) {
         refreshData();
     })
 }
+
+
 
 
 refreshData()
