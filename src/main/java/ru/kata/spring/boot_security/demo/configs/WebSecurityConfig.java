@@ -32,23 +32,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticated/**", "/").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-//                .and()
-//                .formLogin()
-//                .successHandler(successUserHandler)
-//                .and()
-//                .logout().logoutSuccessUrl("/")
-//                .and().csrf().disable();
-
-                .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                .formLogin()
+                .successHandler(successUserHandler)
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .permitAll()
-                .logoutSuccessUrl("/login")
+                .logout().logoutSuccessUrl("/")
                 .and().csrf().disable();
+
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().successHandler(successUserHandler)
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .permitAll()
+//                .logoutSuccessUrl("/login")
+//                .and().csrf().disable();
     }
 
     @Bean
