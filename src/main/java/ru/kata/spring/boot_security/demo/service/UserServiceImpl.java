@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(email);
         if (user == null) {
@@ -50,13 +49,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return user;
     }
 
-    @Transactional
+
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     @Override
-    @Transactional
     public User findByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
