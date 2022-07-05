@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -40,16 +39,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("Not found " + email);
-        }
-        return user;
-    }
-
-
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -59,4 +48,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userRepository.findUserByEmail(email);
     }
 
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmail(email);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getAuthorities());
+    }
 }

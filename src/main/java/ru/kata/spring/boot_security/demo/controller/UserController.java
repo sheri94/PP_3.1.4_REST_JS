@@ -25,7 +25,7 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String getUser(@AuthenticationPrincipal User user,
                           @AuthenticationPrincipal UserDetails userDetails,
                           Model model) {

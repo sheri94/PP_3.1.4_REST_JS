@@ -41,29 +41,4 @@ public class AdminController {
         model.addAttribute("role", roleService.findAll());
         return "admin";
     }
-
-
-
-
-//    @PostMapping("/admin/user-create")
-//    public String createUser(User user,
-//                             @RequestParam(value = "rolesId") String[] roles) {
-//        user.setRoles(roleService.getSetRoles(roles));
-//        userService.saveUser(user);
-//        return "redirect:/admin/users";
-//    }
-//
-//    @DeleteMapping("/admin/user-delete/{id}")
-//    public String deleteUser(@PathVariable("id") Long id) {
-//        userService.deleteById(id);
-//        return "redirect:/admin/users";
-//    }
-//
-//    @PatchMapping("/admin/user-updates")
-//    public String updateUserForm(User user,
-//                                 @RequestParam(value = "rolesId") String[] roles) {
-//        user.setRoles(roleService.getSetRoles(roles));
-//        userService.saveUser(user);
-//        return "redirect:/admin/users";
-//    }
 }

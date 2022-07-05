@@ -26,15 +26,20 @@ public class RESTController {
         return allUsers;
     }
 
-    @GetMapping("{id}")
-    public User getOneUser(@PathVariable("id") Long id) {
-        return userService.findById(id);
-    }
+//    @GetMapping("{id}")
+//    public User getOneUser(@PathVariable("id") Long id) {
+//        return userService.findById(id);
+//    }
+
+//    @GetMapping("{id}")
+//    public ResponseEntity<User> getOneUser(@PathVariable Long id) {
+//        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+//    }
 
     @PostMapping()
-    public User addNewUser(@RequestBody User user) {
+    public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
@@ -44,8 +49,8 @@ public class RESTController {
     }
 
     @PutMapping("{id}")
-    public User editUser(@RequestBody User user) {
+    public ResponseEntity<User> editUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 }

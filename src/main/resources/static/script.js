@@ -29,9 +29,9 @@ function showUsers(users) {
         tBody += ('<tr>');
     });
 
-     $('#usersTable').html(tBody)
+    $('#usersTable').html(tBody)
     $('#nav-home-tab').tab('show')
- }
+}
 
 refreshData()
 
@@ -57,15 +57,15 @@ function addNewUser() {
     })
 
 
-    .then((r) => {
-        if (r.ok) {
-            $('form input[type="text"], form input[type="password"], form input[type="number"], form textarea')
-                .val('');
-             $('#nav-home-tab').tab('show')
-                 refreshData()
-        }
+        .then((r) => {
+            if (r.ok) {
+                $('form input[type="text"], form input[type="password"], form input[type="number"], form textarea')
+                    .val('');
+                $('#nav-home-tab').tab('show')
+                refreshData()
+            }
 
-    })
+        })
 }
 
 //------ put --------
